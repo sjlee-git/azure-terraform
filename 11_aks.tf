@@ -1,7 +1,7 @@
 resource "azurerm_user_assigned_identity" "identity" {
     resource_group_name = azurerm_resource_group.sjlee_rg.name
     location            = azurerm_resource_group.sjlee_rg.location
-    name = "identity970512"
+    name = "sjlee-identity"
 }
 
 resource "azurerm_kubernetes_cluster" "sjleekube" {
@@ -92,4 +92,3 @@ resource "azurerm_role_assignment" "ra4" {
     principal_id         = azurerm_user_assigned_identity.identity.principal_id
     depends_on           = [azurerm_user_assigned_identity.identity, azurerm_application_gateway.appgw]
 }
-

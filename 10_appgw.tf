@@ -7,7 +7,7 @@ resource "azurerm_public_ip" "appgw_ip" {
 } # AppGateway Public IP
 
 resource "azurerm_application_gateway" "appgw" {
-    name                = "ingress-appgw"
+    name                = "sjlee-appgw"
     resource_group_name = azurerm_resource_group.sjlee_rg.name
     location            = azurerm_resource_group.sjlee_rg.location
 
@@ -27,10 +27,10 @@ resource "azurerm_application_gateway" "appgw" {
         port = 80
     }
 
-    # frontend_port {
-    #     name = "httpsPort"
-    #     port = 443
-    # }
+    frontend_port {
+        name = "httpsPort"
+        port = 443
+    }
 
     frontend_ip_configuration {
         name                 = "front_ip"
@@ -64,11 +64,11 @@ resource "azurerm_application_gateway" "appgw" {
         backend_http_settings_name = "http_setting"
     } # Http
 
-    # ssl_certificate{
-    #     name = "hamcert"
-    #     data = filebase64("./certificate.pfx")
-    #     password = "it1"
-    # } # ssl add
+    ssl_certificate{
+        name = "sjleecert"
+        data = filebase64("./sjleecert.pfx")
+        password = "flash15!"
+    } # ssl add
 
     depends_on = [azurerm_public_ip.appgw_ip]
 }
